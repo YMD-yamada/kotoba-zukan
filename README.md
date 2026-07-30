@@ -8,10 +8,12 @@
 
 ```bash
 npm install
-npm run dev          # 開発
-npm run build        # 本番ビルド
-npm run preview      # ローカルでビルド成果物を確認
-npm run smoke        # ビルド＋簡易チェック
+npm run dev          # Web 開発
+npm run build
+npm run preview
+npm run smoke
+npm run electron:dev   # ローカル窓で開発
+npm run dist:win       # Windows インストーラ / portable を release/ に出力
 ```
 
 ### ローカル / オフライン

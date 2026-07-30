@@ -2,6 +2,8 @@ import type { CSSProperties } from 'react'
 import { categories, TOTAL_WORDS } from '../data'
 import { useAppStore } from '../store/useAppStore'
 import type { Screen } from './NavBar'
+import { Mascot } from './Mascot'
+import { CategoryArt } from './WordArt'
 
 export function HomeScreen({
   onNavigate,
@@ -14,62 +16,62 @@ export function HomeScreen({
   return (
     <section className="home">
       <div className="home__hero">
-        <div className="home__brand-row">
-          <span className="home__mark" aria-hidden>
-            📖
-          </span>
-          <h1 className="home__brand">ちいさなことばずかん</h1>
+        <div className="home__stage">
+          <Mascot className="home__mascot" />
+          <div className="home__copy">
+            <p className="home__kicker">オリジナルえほんずかん</p>
+            <h1 className="home__brand">ちいさなことばずかん</h1>
+            <p className="home__lead">タッチして、ことばがお話しするよ</p>
+          </div>
         </div>
-        <p className="home__lead">タッチして、ことばをおぼえよう</p>
-        <p className="home__sub">
-          オリジナルの絵ことば図鑑。日本語と英語を読み上げます。ネットなしでも使えます。
-        </p>
         <div className="home__cta">
           <button
             type="button"
-            className="btn btn--primary btn--wide"
+            className="btn btn--primary btn--wide btn--bounce"
             onClick={() => onNavigate('browse')}
           >
-            ずかんをひらく
+            <span aria-hidden>📖 </span>ずかんをひらく
           </button>
           <button
             type="button"
-            className="btn btn--ghost btn--wide"
-            onClick={() => onNavigate('quiz')}
+            className="btn btn--secondary btn--wide"
+            onClick={() => onNavigate('play')}
           >
-            クイズであそぶ
+            <span aria-hidden>🎮 </span>あそびコーナー
           </button>
         </div>
       </div>
 
       <div className="home__stats" aria-label="進捗">
-        <div>
+        <div className="stat-sticker stat-sticker--a">
           <strong>{heard.length}</strong>
-          <span>きいたことば</span>
+          <span>きいた</span>
         </div>
-        <div>
+        <div className="stat-sticker stat-sticker--b">
           <strong>{favorites.length}</strong>
-          <span>おきにいり</span>
+          <span>すき</span>
         </div>
-        <div>
+        <div className="stat-sticker stat-sticker--c">
           <strong>{TOTAL_WORDS}</strong>
           <span>ぜんぶ</span>
         </div>
       </div>
 
-      <h2 className="section-title">カテゴリー</h2>
+      <h2 className="section-title">
+        <span aria-hidden>✨</span> すきなばしょをタッチ
+      </h2>
       <div className="cat-grid">
-        {categories.map((c) => (
+        {categories.map((c, i) => (
           <button
             key={c.id}
             type="button"
-            className="cat-card"
+            className={`cat-card cat-card--tilt-${(i % 3) + 1}`}
             style={{ '--cat': c.color } as CSSProperties}
             aria-label={`${c.label}のことばを見る`}
             onClick={() => onNavigate('browse', { category: c.id })}
           >
             <span className="cat-card__emoji" aria-hidden>
-              {c.emoji}
+              <CategoryArt emoji={c.emoji} color={c.color} size={52} />
             </span>
             <span className="cat-card__label">{c.label}</span>
           </button>
@@ -78,11 +80,11 @@ export function HomeScreen({
 
       <aside className="home__note">
         <p>
-          本アプリは小学館の市販図鑑の公式アプリではありません。オリジナルの語彙と画面です。紙の図鑑がほしいときは
+          市販図鑑の公式アプリではありません。紙の図鑑は
           <button type="button" className="linkish" onClick={() => onNavigate('book')}>
             おすすめの本
           </button>
-          からどうぞ。
+          から。こえの設定は「このアプリについて」へ。
         </p>
       </aside>
     </section>

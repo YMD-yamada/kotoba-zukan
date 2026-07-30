@@ -1,0 +1,8 @@
+release
+node_modules
+.git
+*.exe
+*.blockmap
+.env
+.envs
+.env.*

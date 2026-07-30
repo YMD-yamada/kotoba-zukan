@@ -1,6 +1,7 @@
 import { getWordById } from '../data'
 import type { WordEntry } from '../data/types'
 import { useAppStore } from '../store/useAppStore'
+import { WordArt } from './WordArt'
 
 export function FavoritesScreen({ onOpenWord }: { onOpenWord: (w: WordEntry) => void }) {
   const favorites = useAppStore((s) => s.favorites)
@@ -18,9 +19,7 @@ export function FavoritesScreen({ onOpenWord }: { onOpenWord: (w: WordEntry) => 
         <div className="word-grid">
           {items.map((w) => (
             <button key={w.id} type="button" className="word-tile" onClick={() => onOpenWord(w)}>
-              <span className="word-tile__emoji" aria-hidden>
-                {w.emoji}
-              </span>
+              <WordArt word={w} size={72} className="word-tile__art" />
               <span className="word-tile__ja">{w.ja}</span>
               <span className="word-tile__en">{w.en}</span>
             </button>

@@ -3,6 +3,7 @@ import { words } from '../data'
 import type { WordEntry } from '../data/types'
 import { speakText } from '../lib/speech'
 import { useAppStore } from '../store/useAppStore'
+import { WordArt } from './WordArt'
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -24,6 +25,10 @@ function makeQuestion(pool: WordEntry[]): { answer: WordEntry; choices: WordEntr
 
 export function QuizScreen() {
   const markHeard = useAppStore((s) => s.markHeard)
+  const gentleVoice = useAppStore((s) => s.gentleVoice)
+  const voiceJaURI = useAppStore((s) => s.voiceJaURI)
+  const speakJa = (text: string) =>
+    speakText(text, 'ja', { gentle: gentleVoice, preferredVoiceURI: voiceJaURI })
   const [score, setScore] = useState(0)
   const [round, setRound] = useState(1)
   const [feedback, setFeedback] = useState<'ok' | 'ng' | null>(null)
@@ -46,7 +51,7 @@ export function QuizScreen() {
 
   const playHint = () => {
     if (!question) return
-    speakText(question.answer.ja, 'ja')
+    speakJa(question.answer.ja)
     markHeard(question.answer.id)
   }
 
@@ -57,9 +62,9 @@ export function QuizScreen() {
     setFeedback(ok ? 'ok' : 'ng')
     if (ok) {
       setScore((s) => s + 1)
-      speakText('せいかい！', 'ja')
+      speakJa('せいかい！')
     } else {
-      speakText(`正解は ${question.answer.ja}`, 'ja')
+      speakJa(`正解は ${question.answer.ja}`)
     }
     nextTimer.current = window.setTimeout(next, 1200)
   }
@@ -86,7 +91,7 @@ export function QuizScreen() {
 
       <div className="quiz__prompt" aria-live="polite">
         <span className="quiz__emoji" aria-hidden>
-          {question.answer.emoji}
+          <WordArt word={question.answer} size={140} />
         </span>
         <button type="button" className="btn btn--ghost" onClick={playHint}>
           ヒント（おと）

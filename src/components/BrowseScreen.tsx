@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { categories, getWordsByCategory, searchWords } from '../data'
 import type { CategoryId, WordEntry } from '../data/types'
 import { useAppStore } from '../store/useAppStore'
+import { CategoryArt, WordArt } from './WordArt'
 
 export function BrowseScreen({ onOpenWord }: { onOpenWord: (w: WordEntry) => void }) {
   const category = useAppStore((s) => s.category)
@@ -54,7 +55,7 @@ export function BrowseScreen({ onOpenWord }: { onOpenWord: (w: WordEntry) => voi
             className={`chip${category === c.id ? ' is-on' : ''}`}
             onClick={() => setCategory(c.id as CategoryId)}
           >
-            {c.emoji} {c.label}
+            <CategoryArt emoji={c.emoji} color={c.color} size={28} /> {c.label}
           </button>
         ))}
       </div>
@@ -64,9 +65,7 @@ export function BrowseScreen({ onOpenWord }: { onOpenWord: (w: WordEntry) => voi
       <div className="word-grid">
         {list.map((w) => (
           <button key={w.id} type="button" className="word-tile" onClick={() => onOpenWord(w)} aria-label={`${w.ja}（${w.en}）`}>
-            <span className="word-tile__emoji" aria-hidden>
-              {w.emoji}
-            </span>
+            <WordArt word={w} size={72} className="word-tile__art" />
             <span className="word-tile__ja">{w.ja}</span>
             <span className="word-tile__en">{w.en}</span>
             <span className="word-tile__marks" aria-hidden>

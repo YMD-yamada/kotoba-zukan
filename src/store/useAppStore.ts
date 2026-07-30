@@ -8,11 +8,17 @@ type AppState = {
   category: CategoryId | 'all'
   query: string
   englishOn: boolean
+  gentleVoice: boolean
+  voiceJaURI: string | null
+  voiceEnURI: string | null
   toggleFavorite: (id: string) => void
   markHeard: (id: string) => void
   setCategory: (id: CategoryId | 'all') => void
   setQuery: (q: string) => void
   setEnglishOn: (on: boolean) => void
+  setGentleVoice: (on: boolean) => void
+  setVoiceJaURI: (uri: string | null) => void
+  setVoiceEnURI: (uri: string | null) => void
 }
 
 export const useAppStore = create<AppState>()(
@@ -23,6 +29,9 @@ export const useAppStore = create<AppState>()(
       category: 'all',
       query: '',
       englishOn: true,
+      gentleVoice: true,
+      voiceJaURI: null,
+      voiceEnURI: null,
       toggleFavorite: (id) => {
         const cur = get().favorites
         set({
@@ -36,6 +45,9 @@ export const useAppStore = create<AppState>()(
       setCategory: (category) => set({ category }),
       setQuery: (query) => set({ query }),
       setEnglishOn: (englishOn) => set({ englishOn }),
+      setGentleVoice: (gentleVoice) => set({ gentleVoice }),
+      setVoiceJaURI: (voiceJaURI) => set({ voiceJaURI }),
+      setVoiceEnURI: (voiceEnURI) => set({ voiceEnURI }),
     }),
     {
       name: 'kotoba-zukan-v1',
@@ -43,6 +55,9 @@ export const useAppStore = create<AppState>()(
         favorites: s.favorites,
         heard: s.heard,
         englishOn: s.englishOn,
+        gentleVoice: s.gentleVoice,
+        voiceJaURI: s.voiceJaURI,
+        voiceEnURI: s.voiceEnURI,
       }),
     },
   ),

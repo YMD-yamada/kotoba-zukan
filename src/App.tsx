@@ -9,6 +9,14 @@ import { QuizScreen } from './components/QuizScreen'
 import { FavoritesScreen } from './components/FavoritesScreen'
 import { BookScreen } from './components/BookScreen'
 import { AboutScreen } from './components/AboutScreen'
+import { PlayHubScreen, type PlayId } from './components/PlayHubScreen'
+import {
+  DressPlayScreen,
+  MusicPlayScreen,
+  SoundQuizScreen,
+  SoupPlayScreen,
+} from './components/PlayScreens'
+import { LettersScreen } from './components/LettersScreen'
 
 function App() {
   const [screen, setScreen] = useState<Screen>('home')
@@ -35,6 +43,12 @@ function App() {
     setScreen(wordBackRef.current)
   }
 
+  const openPlay = (id: PlayId) => {
+    setScreen(id)
+  }
+
+  const backToPlay = () => setScreen('play')
+
   return (
     <div className="app-shell">
       <div className="app-bg" aria-hidden />
@@ -52,14 +66,32 @@ function App() {
               </button>
             </section>
           ))}
-        {screen === 'quiz' && <QuizScreen />}
+        {screen === 'play' && <PlayHubScreen onOpen={openPlay} />}
+        {screen === 'quiz' && (
+          <section>
+            <button type="button" className="back" onClick={backToPlay}>
+              ← あそびにもどる
+            </button>
+            <QuizScreen />
+          </section>
+        )}
+        {screen === 'sound' && <SoundQuizScreen onBack={backToPlay} />}
+        {screen === 'soup' && <SoupPlayScreen onBack={backToPlay} />}
+        {screen === 'dress' && <DressPlayScreen onBack={backToPlay} />}
+        {screen === 'music' && <MusicPlayScreen onBack={backToPlay} />}
+        {screen === 'letters' && <LettersScreen onBack={backToPlay} />}
         {screen === 'favorites' && (
           <FavoritesScreen onOpenWord={(w) => openWord(w, 'favorites')} />
         )}
         {screen === 'book' && <BookScreen />}
         {screen === 'about' && <AboutScreen />}
       </main>
-      {screen !== 'word' && <NavBar screen={screen === 'about' ? 'home' : screen} onNavigate={navigate} />}
+      {screen !== 'word' && (
+        <NavBar
+          screen={screen === 'about' ? 'home' : screen}
+          onNavigate={navigate}
+        />
+      )}
       <footer className="app-foot">
         <button type="button" className="linkish" onClick={() => navigate('about')}>
           このアプリについて・権利表示

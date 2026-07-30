@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  // Electron file:// 読み込み用。Web デプロイでは Vercel が相対パスで問題なし
+  base: './',
   plugins: [
     react(),
     VitePWA({
@@ -12,11 +14,11 @@ export default defineConfig({
         name: 'ちいさなことばずかん',
         short_name: 'ことばずかん',
         description: 'こども向けオリジナルことば図鑑。タッチで日本語・英語の読み上げ。オフラインでも使えます。',
-        theme_color: '#2f9e8f',
-        background_color: '#fff8ef',
+        theme_color: '#5bb8e8',
+        background_color: '#9ad7f5',
         display: 'standalone',
         lang: 'ja',
-        start_url: '/',
+        start_url: './',
         icons: [
           {
             src: 'favicon.svg',
@@ -28,7 +30,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,ico,png,woff2}'],
-        navigateFallback: '/index.html',
+        navigateFallback: 'index.html',
       },
     }),
   ],

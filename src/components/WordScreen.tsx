@@ -3,6 +3,7 @@ import type { WordEntry } from '../data/types'
 import { categories } from '../data'
 import { speakText, stopSpeaking, canSpeak } from '../lib/speech'
 import { useAppStore } from '../store/useAppStore'
+import { WordArt } from './WordArt'
 
 export function WordScreen({
   word,
@@ -16,21 +17,28 @@ export function WordScreen({
   const favorites = useAppStore((s) => s.favorites)
   const toggleFavorite = useAppStore((s) => s.toggleFavorite)
   const markHeard = useAppStore((s) => s.markHeard)
+  const gentleVoice = useAppStore((s) => s.gentleVoice)
+  const voiceJaURI = useAppStore((s) => s.voiceJaURI)
+  const voiceEnURI = useAppStore((s) => s.voiceEnURI)
   const cat = categories.find((c) => c.id === word.category)
+
+  const speakOptsJa = { gentle: gentleVoice, preferredVoiceURI: voiceJaURI }
+  const speakOptsEn = { gentle: gentleVoice, preferredVoiceURI: voiceEnURI }
 
   useEffect(() => {
     markHeard(word.id)
-    speakText(word.ja, 'ja')
+    speakText(word.ja, 'ja', speakOptsJa)
     return () => stopSpeaking()
-  }, [word.id, word.ja, markHeard])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only re-speak when word changes
+  }, [word.id, word.ja, markHeard, gentleVoice, voiceJaURI])
 
   const playJa = () => {
     markHeard(word.id)
-    speakText(word.ja, 'ja')
+    speakText(word.ja, 'ja', speakOptsJa)
   }
   const playEn = () => {
     markHeard(word.id)
-    speakText(word.en, 'en')
+    speakText(word.en, 'en', speakOptsEn)
   }
 
   return (
@@ -39,12 +47,12 @@ export function WordScreen({
         ← もどる
       </button>
 
-      <div className="word-detail__card" style={{ '--cat': cat?.color ?? '#2f9e8f' } as CSSProperties}>
+      <div className="word-detail__card" style={{ '--cat': cat?.color ?? '#2aa89a' } as CSSProperties}>
         <p className="word-detail__cat">
           {cat?.emoji} {cat?.label}
         </p>
-        <div className="word-detail__emoji" aria-hidden>
-          {word.emoji}
+        <div className="word-detail__emoji bounce-in" aria-hidden>
+          <WordArt word={word} size={168} />
         </div>
         <h1 className="word-detail__ja">{word.ja}</h1>
         {englishOn && <p className="word-detail__en">{word.en}</p>}
