@@ -1552,3 +1552,19 @@ select {
   font-weight: 700;
   line-height: 1.4;
 }
+
+.about__url {
+  margin: 0.5rem 0 0.85rem;
+  word-break: break-all;
+  font-weight: 800;
+}
+
+.about__url a {
+  color: var(--ink);
+}
+
+.about__share-note {
+  margin: 0.6rem 0 0;
+  font-weight: 800;
+  color: var(--muted);
+}

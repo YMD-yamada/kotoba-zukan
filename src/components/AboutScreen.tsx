@@ -1,11 +1,49 @@
+import { useState } from 'react'
 import { TOTAL_WORDS } from '../data'
 import { VoicePanel } from './VoicePanel'
 
+const SHARE_URL = 'https://kotoba-zukan.vercel.app/'
+const SHARE_TEXT =
+  'ちいさなことばずかん — タッチでよめる・あそべる子ども向けことば図鑑（無料・アカウント不要）'
+
 export function AboutScreen() {
+  const [shareNote, setShareNote] = useState('')
+
+  async function shareApp() {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'ちいさなことばずかん', text: SHARE_TEXT, url: SHARE_URL })
+        setShareNote('共有メニューを開きました')
+        return
+      }
+      await navigator.clipboard.writeText(`${SHARE_TEXT}\n${SHARE_URL}`)
+      setShareNote('リンクをコピーしました')
+    } catch {
+      setShareNote('共有をキャンセルしました')
+    }
+  }
+
   return (
     <section className="about">
       <h1>このアプリについて</h1>
       <VoicePanel />
+      <div className="about__block">
+        <h2>友だちに教える</h2>
+        <p>保護者の方どうしで共有できます。インストール不要で、ブラウザからすぐ遊べます。</p>
+        <p className="about__url">
+          <a href={SHARE_URL} target="_blank" rel="noreferrer">
+            {SHARE_URL}
+          </a>
+        </p>
+        <button type="button" className="btn btn--secondary" onClick={() => void shareApp()}>
+          リンクを共有する
+        </button>
+        {shareNote ? (
+          <p className="about__share-note" role="status">
+            {shareNote}
+          </p>
+        ) : null}
+      </div>
       <div className="about__block">
         <h2>できること</h2>
         <ul>
