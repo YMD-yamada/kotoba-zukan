@@ -1,0 +1,72 @@
+import { useRef, useState } from 'react'
+import type { CategoryId, WordEntry } from './data/types'
+import { useAppStore } from './store/useAppStore'
+import { NavBar, type Screen } from './components/NavBar'
+import { HomeScreen } from './components/HomeScreen'
+import { BrowseScreen } from './components/BrowseScreen'
+import { WordScreen } from './components/WordScreen'
+import { QuizScreen } from './components/QuizScreen'
+import { FavoritesScreen } from './components/FavoritesScreen'
+import { BookScreen } from './components/BookScreen'
+import { AboutScreen } from './components/AboutScreen'
+
+function App() {
+  const [screen, setScreen] = useState<Screen>('home')
+  const [selected, setSelected] = useState<WordEntry | null>(null)
+  const wordBackRef = useRef<Screen>('browse')
+  const setCategory = useAppStore((s) => s.setCategory)
+
+  const navigate = (next: Screen, opts?: { category?: string }) => {
+    if (opts?.category) {
+      setCategory(opts.category as CategoryId)
+    }
+    setSelected(null)
+    setScreen(next)
+  }
+
+  const openWord = (w: WordEntry, from: Screen = 'browse') => {
+    wordBackRef.current = from
+    setSelected(w)
+    setScreen('word')
+  }
+
+  const closeWord = () => {
+    setSelected(null)
+    setScreen(wordBackRef.current)
+  }
+
+  return (
+    <div className="app-shell">
+      <div className="app-bg" aria-hidden />
+      <main className="app-main">
+        {screen === 'home' && <HomeScreen onNavigate={navigate} />}
+        {screen === 'browse' && <BrowseScreen onOpenWord={(w) => openWord(w, 'browse')} />}
+        {screen === 'word' &&
+          (selected ? (
+            <WordScreen word={selected} onBack={closeWord} />
+          ) : (
+            <section className="empty">
+              <p>ことばが見つかりませんでした。</p>
+              <button type="button" className="btn btn--ghost" onClick={() => setScreen('browse')}>
+                ずかんにもどる
+              </button>
+            </section>
+          ))}
+        {screen === 'quiz' && <QuizScreen />}
+        {screen === 'favorites' && (
+          <FavoritesScreen onOpenWord={(w) => openWord(w, 'favorites')} />
+        )}
+        {screen === 'book' && <BookScreen />}
+        {screen === 'about' && <AboutScreen />}
+      </main>
+      {screen !== 'word' && <NavBar screen={screen === 'about' ? 'home' : screen} onNavigate={navigate} />}
+      <footer className="app-foot">
+        <button type="button" className="linkish" onClick={() => navigate('about')}>
+          このアプリについて・権利表示
+        </button>
+      </footer>
+    </div>
+  )
+}
+
+export default App
