@@ -9,11 +9,12 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg'],
+      includeAssets: ['favicon.svg', 'og.png'],
       manifest: {
         name: 'ちいさなことばずかん',
         short_name: 'ことばずかん',
-        description: 'こども向けオリジナルことば図鑑。タッチで日本語・英語の読み上げ。オフラインでも使えます。',
+        description:
+          'こども向けオリジナルことば図鑑。タッチで読み上げ、もじ練習、クイズ。オフラインでも使えます。',
         theme_color: '#5bb8e8',
         background_color: '#9ad7f5',
         display: 'standalone',
