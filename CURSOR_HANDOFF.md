@@ -26,6 +26,12 @@
 - 本選び: 目的フィルタ＋比較表
 - Electron ローカルアプリ
 
+## Monetization
+
+- Stub: `MONETIZATION.md`（Affiliate/Tips。子ども向け広告なし）
+- 収益優先 #2（`33_Tasks/RELEASE_SNS_PRIORITY.md`）
+- Draft: `33_Tasks/publish-drafts/kotoba-zukan.md`
+
 ## 拡散メモ
 
 - 共有用URLは本番のみ（相対 base でも OG は絶対URL）
