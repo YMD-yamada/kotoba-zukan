@@ -83,15 +83,27 @@ export function AboutScreen() {
         </ul>
         <p>
           公開ページの共通方針:
-          <a href="https://ymd-portfolio-site.pages.dev/legal/privacy" rel="noopener noreferrer">
+        </p>
+        <p className="app-foot__legal">
+          <a
+            className="btn btn--ghost btn--legal"
+            href="https://ymd-portfolio-site.pages.dev/legal/privacy"
+            rel="noopener noreferrer"
+          >
             プライバシー
           </a>
-          ・
-          <a href="https://ymd-portfolio-site.pages.dev/legal/terms" rel="noopener noreferrer">
-            利用規約
+          <a
+            className="btn btn--secondary btn--legal"
+            href="https://ymd-portfolio-site.pages.dev/legal/terms"
+            rel="noopener noreferrer"
+          >
+            やくそく
           </a>
-          ・
-          <a href="https://ymd-portfolio-site.pages.dev/legal/support" rel="noopener noreferrer">
+          <a
+            className="btn btn--ghost btn--legal"
+            href="https://ymd-portfolio-site.pages.dev/legal/support"
+            rel="noopener noreferrer"
+          >
             サポート
           </a>
         </p>
