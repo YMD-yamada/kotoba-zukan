@@ -81,6 +81,20 @@ export function AboutScreen() {
           </li>
           <li>外部サイト（Amazon・出版社）へ移動すると、各サイトのプライバシーポリシーが適用されます</li>
         </ul>
+        <p>
+          公開ページの共通方針:
+          <a href="https://ymd-portfolio-site.pages.dev/legal/privacy" rel="noopener noreferrer">
+            プライバシー
+          </a>
+          ・
+          <a href="https://ymd-portfolio-site.pages.dev/legal/terms" rel="noopener noreferrer">
+            利用規約
+          </a>
+          ・
+          <a href="https://ymd-portfolio-site.pages.dev/legal/support" rel="noopener noreferrer">
+            サポート
+          </a>
+        </p>
       </div>
     </section>
   )

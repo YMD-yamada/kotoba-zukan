@@ -96,6 +96,15 @@ function App() {
         <button type="button" className="linkish" onClick={() => navigate('about')}>
           このアプリについて・権利表示
         </button>
+        <p className="app-foot__legal">
+          <a href="https://ymd-portfolio-site.pages.dev/legal/privacy" rel="noopener noreferrer">
+            プライバシー
+          </a>
+          {" · "}
+          <a href="https://ymd-portfolio-site.pages.dev/legal/terms" rel="noopener noreferrer">
+            利用規約
+          </a>
+        </p>
       </footer>
     </div>
   )

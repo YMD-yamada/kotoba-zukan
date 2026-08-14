@@ -884,6 +884,15 @@ select {
   font-size: 0.8rem;
 }
 
+.app-foot__legal {
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+}
+
+.app-foot__legal a {
+  color: var(--muted);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
