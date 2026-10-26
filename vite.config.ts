@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'og.png'],
+      includeAssets: ['favicon.svg', 'og.png', 'icon-192.png', 'icon-512.png'],
       manifest: {
         name: 'ちいさなことばずかん',
         short_name: 'ことばずかん',
@@ -21,6 +21,8 @@ export default defineConfig({
         lang: 'ja',
         start_url: './',
         icons: [
+          { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icon-512.png', sizes: '512x512', type: 'image/png' },
           {
             src: 'favicon.svg',
             sizes: 'any',
