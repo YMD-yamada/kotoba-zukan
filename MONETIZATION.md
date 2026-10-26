@@ -8,7 +8,7 @@
 ## Chosen pattern（1つ以上）
 
 - [x] Affiliate（Amazon 等・人間がタグ投入後）
-- [ ] Tips / sponsorship
+- [x] Tips / sponsorship（Ko-fi https://ko-fi.com/ymdapps）
 - [ ] IAP (App Store / Play)
 - [ ] Ads（子ども向けでは原則避ける / ホスティング解析も原則無効維持）
 - [ ] Freemium / Stripe Checkout

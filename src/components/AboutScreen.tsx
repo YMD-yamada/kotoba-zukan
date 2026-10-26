@@ -59,6 +59,13 @@ export function AboutScreen() {
         <p>
           幼児〜低学年向けの学習補助です。アカウント登録は不要で、お子さんの氏名・年齢・位置情報などは取得しません。
         </p>
+        <p>
+          このアプリは無料で、広告もありません。続けて作るための応援は{' '}
+          <a href="https://ko-fi.com/ymdapps" target="_blank" rel="noopener noreferrer">
+            Ko-fi（開発を応援する）
+          </a>
+          {' '}から受け付けています。
+        </p>
       </div>
       <div className="about__block">
         <h2>法律・権利について</h2>
