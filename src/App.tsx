@@ -53,7 +53,7 @@ function App() {
     <div className="app-shell">
       <div className="app-bg" aria-hidden />
       <main className="app-main">
-        {screen === 'home' && <HomeScreen onNavigate={navigate} />}
+        {screen === 'home' && <HomeScreen onNavigate={navigate} onOpenWord={(w) => openWord(w, 'home')} />}
         {screen === 'browse' && <BrowseScreen onOpenWord={(w) => openWord(w, 'browse')} />}
         {screen === 'word' &&
           (selected ? (

@@ -1,15 +1,26 @@
 import type { CSSProperties } from 'react'
-import { categories, TOTAL_WORDS } from '../data'
+import { categories, TOTAL_WORDS, words } from '../data'
+import type { WordEntry } from '../data/types'
 import { useAppStore } from '../store/useAppStore'
 import type { Screen } from './NavBar'
 import { Mascot } from './Mascot'
-import { CategoryArt } from './WordArt'
+import { CategoryArt, WordArt } from './WordArt'
+
+/** 日付から毎日ちがうことばを1つ選ぶ（同じ日はだれが開いても同じ） */
+function todaysWord(): WordEntry {
+  const d = new Date()
+  const day = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000)
+  return words[(day * 7) % words.length]
+}
 
 export function HomeScreen({
   onNavigate,
+  onOpenWord,
 }: {
   onNavigate: (s: Screen, opts?: { category?: string }) => void
+  onOpenWord: (w: WordEntry) => void
 }) {
+  const today = todaysWord()
   const heard = useAppStore((s) => s.heard)
   const favorites = useAppStore((s) => s.favorites)
 
@@ -41,6 +52,20 @@ export function HomeScreen({
           </button>
         </div>
       </div>
+
+      <button
+        type="button"
+        className="today-card"
+        aria-label={`きょうのことば「${today.ja}」をひらく`}
+        onClick={() => onOpenWord(today)}
+      >
+        <WordArt word={today} size={72} />
+        <span className="today-card__text">
+          <span className="today-card__kicker">きょうのことば</span>
+          <strong className="today-card__word">{today.ja}</strong>
+          <span className="today-card__hint">タッチしてきいてみよう</span>
+        </span>
+      </button>
 
       <div className="home__stats" aria-label="進捗">
         <div className="stat-sticker stat-sticker--a">
