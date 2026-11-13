@@ -26,7 +26,6 @@ export function NavBar({
     { id: 'browse', label: 'ずかん', icon: '📖' },
     { id: 'play', label: 'あそび', icon: '🎮', active: playActive },
     { id: 'favorites', label: 'すき', icon: '❤️' },
-    { id: 'book', label: 'ほん', icon: '🛍️' },
   ]
 
   return (

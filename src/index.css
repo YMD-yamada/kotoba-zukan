@@ -887,7 +887,7 @@ select {
   position: sticky;
   bottom: 0;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.2rem;
   padding: 0.55rem 0.4rem calc(0.55rem + var(--safe-b));
   background: rgba(255, 253, 248, 0.94);
@@ -1635,4 +1635,78 @@ select {
   margin: 0.6rem 0 0;
   font-weight: 800;
   color: var(--muted);
+}
+
+/* おとなの入口（ParentGate） */
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(20, 40, 38, 0.55);
+}
+
+.gate__card {
+  width: min(100%, 380px);
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border-radius: 24px;
+  background: #fffdf8;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.gate__kicker {
+  margin: 0;
+  font-weight: 900;
+  color: var(--muted);
+}
+
+.gate__title {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--brand-deep);
+}
+
+.gate__lead {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.gate__choices {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.gate__choice {
+  min-height: 56px;
+  font-size: 1.3rem;
+}
+
+.gate__miss {
+  margin: 0;
+  color: #c0392b;
+  font-weight: 700;
+}
+
+.app-foot__parent {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.6rem 1rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.about__books {
+  margin: 0 0 1rem;
 }
