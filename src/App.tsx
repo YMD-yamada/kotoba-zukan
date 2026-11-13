@@ -17,10 +17,12 @@ import {
   SoupPlayScreen,
 } from './components/PlayScreens'
 import { LettersScreen } from './components/LettersScreen'
+import { ParentGate } from './components/ParentGate'
 
 function App() {
   const [screen, setScreen] = useState<Screen>('home')
   const [selected, setSelected] = useState<WordEntry | null>(null)
+  const [gateOpen, setGateOpen] = useState(false)
   const wordBackRef = useRef<Screen>('browse')
   const setCategory = useAppStore((s) => s.setCategory)
 
@@ -83,43 +85,36 @@ function App() {
         {screen === 'favorites' && (
           <FavoritesScreen onOpenWord={(w) => openWord(w, 'favorites')} />
         )}
-        {screen === 'book' && <BookScreen />}
-        {screen === 'about' && <AboutScreen />}
+        {screen === 'book' && (
+          <section>
+            <button type="button" className="back" onClick={() => setScreen('about')}>
+              ← おとなの方へにもどる
+            </button>
+            <BookScreen />
+          </section>
+        )}
+        {screen === 'about' && <AboutScreen onOpenBooks={() => setScreen('book')} />}
       </main>
       {screen !== 'word' && (
         <NavBar
-          screen={screen === 'about' ? 'home' : screen}
+          screen={screen === 'about' || screen === 'book' ? 'home' : screen}
           onNavigate={navigate}
         />
       )}
       <footer className="app-foot">
-        <button type="button" className="linkish" onClick={() => navigate('about')}>
-          このアプリについて・権利表示
+        <button type="button" className="app-foot__parent" onClick={() => setGateOpen(true)}>
+          🔒 おとなの方へ（おすすめの本・設定・お問い合わせ）
         </button>
-        <nav className="app-foot__legal" aria-label="ほうりつ">
-          <a
-            className="btn btn--ghost btn--legal"
-            href="https://ymd-portfolio-site.pages.dev/legal/privacy"
-            rel="noopener noreferrer"
-          >
-            プライバシー
-          </a>
-          <a
-            className="btn btn--secondary btn--legal"
-            href="https://ymd-portfolio-site.pages.dev/legal/terms"
-            rel="noopener noreferrer"
-          >
-            やくそく
-          </a>
-          <a
-            className="btn btn--ghost btn--legal"
-            href="https://ymd-portfolio-site.pages.dev/legal/support"
-            rel="noopener noreferrer"
-          >
-            サポート
-          </a>
-        </nav>
       </footer>
+      {gateOpen && (
+        <ParentGate
+          onClose={() => setGateOpen(false)}
+          onPass={() => {
+            setGateOpen(false)
+            navigate('about')
+          }}
+        />
+      )}
     </div>
   )
 }

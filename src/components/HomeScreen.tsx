@@ -103,15 +103,6 @@ export function HomeScreen({
         ))}
       </div>
 
-      <aside className="home__note">
-        <p>
-          市販図鑑の公式アプリではありません。紙の図鑑は
-          <button type="button" className="linkish" onClick={() => onNavigate('book')}>
-            おすすめの本
-          </button>
-          から。こえの設定は「このアプリについて」へ。
-        </p>
-      </aside>
     </section>
   )
 }

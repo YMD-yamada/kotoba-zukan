@@ -6,7 +6,7 @@ const SHARE_URL = 'https://kotoba-zukan.vercel.app/'
 const SHARE_TEXT =
   'ちいさなことばずかん — タッチでよめる・あそべる子ども向けことば図鑑（無料・アカウント不要）'
 
-export function AboutScreen() {
+export function AboutScreen({ onOpenBooks }: { onOpenBooks: () => void }) {
   const [shareNote, setShareNote] = useState('')
 
   async function shareApp() {
@@ -25,7 +25,12 @@ export function AboutScreen() {
 
   return (
     <section className="about">
-      <h1>このアプリについて</h1>
+      <h1>おとなの方へ</h1>
+      <p className="about__books">
+        <button type="button" className="btn btn--primary btn--wide" onClick={onOpenBooks}>
+          📚 紙の図鑑もいっしょに（おすすめの本）
+        </button>
+      </p>
       <VoicePanel />
       <div className="about__block">
         <h2>友だちに教える</h2>
@@ -51,7 +56,7 @@ export function AboutScreen() {
           <li>タッチで日本語・英語を読み上げ（端末の音声機能）</li>
           <li>あそびコーナー（もじれんしゅう・クイズ・おとあて・スープ・おきがえ・えんそう）</li>
           <li>おすすめの類似市販本への紹介リンク</li>
-          <li>Windows 向けローカルアプリ（Electron）としても起動可</li>
+          <li>お子さんが買い物ページや外部サイトへ進まないよう、本の紹介と設定は「おとなの方へ」（かんたんな計算で開く）にまとめています</li>
         </ul>
       </div>
       <div className="about__block">
@@ -81,7 +86,7 @@ export function AboutScreen() {
         <h2>プライバシー</h2>
         <ul>
           <li>おきにいり・進捗・声の設定はブラウザの localStorage にだけ保存され、この端末から外に送りません</li>
-          <li>アクセス解析・広告 SDK・行動トラッキング・ソーシャルログインは組み込んでいません</li>
+          <li>ページが何回開かれたかだけを数える計測（Vercel Web Analytics。Cookie を使わず、個人は特定しません）を使っています。広告 SDK・行動トラッキング・ソーシャルログインは組み込んでいません</li>
           <li>音声は端末内の Web Speech API（読み上げ）のみ使用します</li>
           <li>
             見出しフォント取得のため Google Fonts へ接続します。フォント配信以外の目的で利用者を追跡する仕組みは入れていません
