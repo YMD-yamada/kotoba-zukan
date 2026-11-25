@@ -147,7 +147,7 @@ function ReadMode({ script }: { script: LetterScript }) {
         <span className="letter-hero__word">{item.word}</span>
       </button>
       <p className="play-hub__lead">
-        {idx + 1} / {list.length}　絵と文字をセットでおぼえよう
+        {idx + 1} / {list.length}　えと もじを セットでおぼえよう
       </p>
       <div className="letter-nav">
         <button
@@ -203,7 +203,7 @@ function WriteMode({ script }: { script: LetterScript }) {
         <span className="letter-write-cue__emoji">{item.emoji}</span>
         <span className="letter-write-cue__word">{item.word}</span>
       </div>
-      <p className="play-hub__lead">うすい字をなぞって書いてみよう</p>
+      <p className="play-hub__lead">うすいじを なぞって かいてみよう</p>
       <div className="letter-nav">
         <button
           type="button"
@@ -275,7 +275,7 @@ function QuizMode({ script }: { script: LetterScript }) {
       setScore((s) => s + 1)
       speakText('せいかい！', 'ja', { gentle: true })
     } else {
-      speakText(`正解は ${q.answer.char}、${q.answer.word}`, 'ja', { gentle: true })
+      speakText(`せいかいは ${q.answer.char}、${q.answer.word}`, 'ja', { gentle: true })
     }
     window.setTimeout(() => {
       setFb(null)
@@ -288,7 +288,7 @@ function QuizMode({ script }: { script: LetterScript }) {
   return (
     <div className="letter-mode">
       <p className="play-hub__lead">
-        おとをきいて、絵と文字のセットをタッチ！　スコア {score} / {round}もんめ
+        おとをきいて、えと もじの セットをタッチ！　スコア {score} / {round}もんめ
       </p>
       <button type="button" className="btn btn--primary btn--wide" onClick={() => speak(q.answer)}>
         もういちどきく

@@ -1,6 +1,6 @@
-import { useEffect, type CSSProperties } from 'react'
+import { useEffect, useRef, type CSSProperties } from 'react'
 import type { WordEntry } from '../data/types'
-import { categories } from '../data'
+import { categories, getWordsByCategory } from '../data'
 import { speakText, stopSpeaking, canSpeak } from '../lib/speech'
 import { useAppStore } from '../store/useAppStore'
 import { WordArt } from './WordArt'
@@ -8,10 +8,17 @@ import { WordArt } from './WordArt'
 export function WordScreen({
   word,
   onBack,
+  onChange,
 }: {
   word: WordEntry
   onBack: () => void
+  onChange: (w: WordEntry) => void
 }) {
+  const siblings = getWordsByCategory(word.category)
+  const idx = siblings.findIndex((w) => w.id === word.id)
+  const prev = idx > 0 ? siblings[idx - 1] : null
+  const next = idx >= 0 && idx < siblings.length - 1 ? siblings[idx + 1] : null
+  const touchX = useRef<number | null>(null)
   const englishOn = useAppStore((s) => s.englishOn)
   const setEnglishOn = useAppStore((s) => s.setEnglishOn)
   const favorites = useAppStore((s) => s.favorites)
@@ -47,7 +54,22 @@ export function WordScreen({
         ← もどる
       </button>
 
-      <div className="word-detail__card" style={{ '--cat': cat?.color ?? '#2aa89a' } as CSSProperties}>
+      <div
+        key={word.id}
+        className="word-detail__card page-turn"
+        style={{ '--cat': cat?.color ?? '#2aa89a' } as CSSProperties}
+        onTouchStart={(e) => {
+          touchX.current = e.touches[0].clientX
+        }}
+        onTouchEnd={(e) => {
+          const start = touchX.current
+          touchX.current = null
+          if (start === null) return
+          const dx = e.changedTouches[0].clientX - start
+          if (dx < -50 && next) onChange(next)
+          if (dx > 50 && prev) onChange(prev)
+        }}
+      >
         <p className="word-detail__cat">
           {cat?.emoji} {cat?.label}
         </p>
@@ -63,7 +85,7 @@ export function WordScreen({
           </button>
           {englishOn && (
             <button type="button" className="btn btn--secondary" onClick={playEn} disabled={!canSpeak()}>
-              英語できく
+              えいごできく
             </button>
           )}
           <button
@@ -77,8 +99,32 @@ export function WordScreen({
         </div>
 
         {!canSpeak() && (
-          <p className="hint">この端末では音声読み上げが使えません。文字でおぼえましょう。</p>
+          <p className="hint">この たんまつでは よみあげが つかえないよ</p>
         )}
+      </div>
+
+      <div className="word-pager">
+        <button
+          type="button"
+          className="word-pager__btn"
+          onClick={() => prev && onChange(prev)}
+          disabled={!prev}
+          aria-label={prev ? `まえのことば ${prev.ja}` : 'まえのことばはないよ'}
+        >
+          ←
+        </button>
+        <span className="word-pager__count" aria-live="polite">
+          {idx + 1} / {siblings.length}
+        </span>
+        <button
+          type="button"
+          className="word-pager__btn"
+          onClick={() => next && onChange(next)}
+          disabled={!next}
+          aria-label={next ? `つぎのことば ${next.ja}` : 'つぎのことばはないよ'}
+        >
+          →
+        </button>
       </div>
 
       <label className="toggle">
@@ -87,7 +133,7 @@ export function WordScreen({
           checked={englishOn}
           onChange={(e) => setEnglishOn(e.target.checked)}
         />
-        英語も表示する
+        えいごも だす
       </label>
     </section>
   )

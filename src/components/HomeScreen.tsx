@@ -32,7 +32,7 @@ export function HomeScreen({
           <div className="home__copy">
             <p className="home__kicker">オリジナルえほんずかん</p>
             <h1 className="home__brand">ちいさなことばずかん</h1>
-            <p className="home__lead">タッチして、ことばがお話しするよ</p>
+            <p className="home__lead">タッチして、ことばが おはなしするよ</p>
           </div>
         </div>
         <div className="home__cta">
