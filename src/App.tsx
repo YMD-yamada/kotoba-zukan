@@ -59,7 +59,7 @@ function App() {
         {screen === 'browse' && <BrowseScreen onOpenWord={(w) => openWord(w, 'browse')} />}
         {screen === 'word' &&
           (selected ? (
-            <WordScreen word={selected} onBack={closeWord} />
+            <WordScreen word={selected} onBack={closeWord} onChange={setSelected} />
           ) : (
             <section className="empty">
               <p>ことばが見つかりませんでした。</p>

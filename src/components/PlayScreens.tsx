@@ -1,3 +1,4 @@
+import { DressFigure, SoupPot } from './PlayArt'
 import { useState, type CSSProperties } from 'react'
 import { words } from '../data'
 import { WordArt } from './WordArt'
@@ -40,7 +41,7 @@ export function SoundQuizScreen({ onBack }: { onBack: () => void }) {
     if (ok) {
       setScore((s) => s + 1)
       speakJa('せいかい！')
-    } else speakJa(`正解は ${question.answer.ja}`)
+    } else speakJa(`せいかいは ${question.answer.ja}`)
     window.setTimeout(() => {
       setFb(null)
       setLocked(false)
@@ -142,19 +143,13 @@ export function SoupPlayScreen({ onBack }: { onBack: () => void }) {
         ← あそびにもどる
       </button>
       <h1>スープをつくろう</h1>
-      <p className="play-hub__lead">やさいを3つまで、ちょうみりょうを2つまで選んでまぜよう。</p>
-      <div
-        className={`soup-pot${stirred ? ' is-ready' : ''}`}
-        style={
-          {
-            '--soup': stirred
-              ? veg.map((id) => VEG.find((v) => v.id === id)?.color).filter(Boolean)[0] ?? '#d8f3dc'
-              : '#cfe8ff',
-          } as CSSProperties
-        }
-      >
-        <div className="soup-pot__liquid" />
-        <p>{stirred ? 'できた！' : 'なべ'}</p>
+      <p className="play-hub__lead">やさいを3つまで、ちょうみりょうを2つまでえらんでまぜよう。</p>
+      <div className="soup-stage">
+        <SoupPot
+          ready={stirred}
+          colors={veg.map((id) => VEG.find((v) => v.id === id)?.color).filter((c): c is string => Boolean(c))}
+        />
+        <p className="soup-caption">{stirred ? 'できた！ おいしそう' : veg.length ? 'まぜてみよう' : 'やさいを えらんでね'}</p>
       </div>
       <h2 className="section-title">やさい</h2>
       <div className="chip-row wrap">
@@ -230,15 +225,7 @@ export function DressPlayScreen({ onBack }: { onBack: () => void }) {
       </button>
       <h1>おきがえしよう</h1>
       <div className="dress-stage">
-        <svg viewBox="0 0 120 160" className="dress-figure" aria-hidden>
-          <circle cx="60" cy="28" r="18" fill="#ffd166" />
-          <circle cx="53" cy="26" r="2" fill="#243447" />
-          <circle cx="67" cy="26" r="2" fill="#243447" />
-          <path d="M52 34c5 5 11 5 16 0" stroke="#243447" strokeWidth="2" fill="none" />
-          <rect x="38" y="48" width="44" height="46" rx="10" fill={top.color} stroke="#243447" strokeWidth="2" />
-          <path d="M38 96h44v36c0 6-6 10-12 10H50c-6 0-12-4-12-10z" fill={bottom.color} stroke="#243447" strokeWidth="2" />
-          <ellipse cx="60" cy="14" rx="22" ry="8" fill={acc.color} opacity="0.95" />
-        </svg>
+        <DressFigure top={top} bottom={bottom} acc={acc} />
         <p className="dress-caption">
           {top.ja} ・ {bottom.ja} ・ {acc.ja}
         </p>
@@ -342,7 +329,7 @@ export function MusicPlayScreen({ onBack }: { onBack: () => void }) {
         ← あそびにもどる
       </button>
       <h1>えんそうしよう</h1>
-      <p className="play-hub__lead">がっきをタッチすると音が鳴るよ（オリジナル音）。</p>
+      <p className="play-hub__lead">がっきをタッチすると おとがなるよ</p>
       <div className="music-grid">
         {INSTRUMENTS.map((ins) => (
           <button

@@ -4,7 +4,7 @@ export type PlayId = 'quiz' | 'sound' | 'soup' | 'dress' | 'music' | 'letters'
 
 const PLAYS: { id: PlayId; title: string; desc: string; tint: string; picture: string }[] = [
   { id: 'letters', title: 'もじれんしゅう', desc: 'あいうえお・ABC', tint: '#2aa89a', picture: '✏️' },
-  { id: 'quiz', title: 'なにのことば？', desc: 'えをみてえらぶ', tint: '#f4a261', picture: '🃏' },
+  { id: 'quiz', title: 'なんのことば？', desc: 'えをみてえらぶ', tint: '#f4a261', picture: '🃏' },
   { id: 'sound', title: 'おとあて', desc: 'おとをきいてえらぶ', tint: '#4cc9f0', picture: '👂' },
   { id: 'soup', title: 'スープをつくろう', desc: 'やさいをいれる', tint: '#ffb703', picture: '🥣' },
   { id: 'dress', title: 'おきがえしよう', desc: 'ふくをきる', tint: '#ff6b6b', picture: '👕' },
@@ -19,7 +19,7 @@ export function PlayHubScreen({
   return (
     <section className="play-hub">
       <h1>あそびコーナー</h1>
-      <p className="play-hub__lead">大きな絵をタッチしてあそぼう</p>
+      <p className="play-hub__lead">おおきなえをタッチしてあそぼう</p>
       <div className="play-hub__grid">
         {PLAYS.map((p) => (
           <button

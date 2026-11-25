@@ -64,7 +64,7 @@ export function QuizScreen() {
       setScore((s) => s + 1)
       speakJa('せいかい！')
     } else {
-      speakJa(`正解は ${question.answer.ja}`)
+      speakJa(`せいかいは ${question.answer.ja}`)
     }
     nextTimer.current = window.setTimeout(next, 1200)
   }
@@ -73,9 +73,9 @@ export function QuizScreen() {
     return (
       <section className="quiz">
         <header className="quiz__head">
-          <h1>なにのことば？</h1>
+          <h1>なんのことば？</h1>
         </header>
-        <p className="empty">クイズに使えることばがありません。ずかんをひらいてみよう。</p>
+        <p className="empty">クイズにつかえることばがないよ。ずかんをひらいてみよう。</p>
       </section>
     )
   }
@@ -83,7 +83,7 @@ export function QuizScreen() {
   return (
     <section className="quiz">
       <header className="quiz__head">
-        <h1>なにのことば？</h1>
+        <h1>なんのことば？</h1>
         <p>
           スコア <strong>{score}</strong> ／ {round} もんめ
         </p>
